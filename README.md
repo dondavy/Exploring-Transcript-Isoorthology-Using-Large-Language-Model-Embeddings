@@ -71,7 +71,7 @@ By leveraging unsupervised clustering (kMedoids/kMeans), this tool classifies tr
 
   #### Argument Reference
 
-  Argument	Default	Description
+  * Argument	Default	Description
 
     <table style="width:100%; border-collapse: collapse; margin-top: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5;">
   <thead>
