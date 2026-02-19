@@ -54,24 +54,24 @@ By leveraging unsupervised clustering (kMedoids/kMeans), this tool classifies tr
 
   * Embeddings Directory: A folder containing .npy files named after your transcript IDs.
 
-### 💻 Usage
+## 💻 Usage
   #### Run the analysis via src/main.py:
 
-    <code>
-    python src/main.py \
-        --tree data/gene_tree.nhx \
-        --source2target data/mapping.tsv \
-        --embedding_path data/embeddings/ \
+    
+    python3 src/main.py \
+        --tree data/example/ENSGT00390000000002.NHX \
+        --source2target data/example/ENSGT00390000000002_source2target.tsv \
+        --embedding_path ata/example/ENSGT00390000000002/ \
         --clustering_algorithm kMedoids \
         --distance_metric Cosine \
         --cluster_resolution_min 2 \
         --cluster_resolution_max 30 \
-        --output_path ./output
-    </code>
+        --output_path data/example/kmedoids+cosine
+    
 
   #### Argument Reference
 
-  * Argument	Default	Description
+  Argument	Default	Description
 
     <table style="width:100%; border-collapse: collapse; margin-top: 20px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5;">
   <thead>
@@ -126,30 +126,25 @@ By leveraging unsupervised clustering (kMedoids/kMeans), this tool classifies tr
 </table>
 
 
-  🧬 Methodology
-  1. Optimal K Selection
+  #### 🧬 Methodology
+  
+    1. Optimal K Selection
 
-  The tool runs clustering across the specified range [k 
-  min
-​	
- ,k 
-max
-​	
- ]. It calculates the Silhouette Score for each k.
+        The tool runs clustering across the specified range [kmin,kmax]. It calculates the Silhouette Score for each k.
+        
+        To ensure the most biological result, it selects the smallest k that achieves a score within 0.02 of the global maximum. If the maximum score is below 0.3, the tool treats the data as a single cluster (unimodal).
 
-To ensure the most biological result, it selects the smallest k that achieves a score within 0.02 of the global maximum. If the maximum score is below 0.3, the tool treats the data as a single cluster (unimodal).
+    2. Homology Inference Logic
 
-2. Homology Inference Logic
+        The tool groups transcripts into clusters and identifies a Medoid (the most representative transcript) for each group. Relationships are then defined:
 
-The tool groups transcripts into clusters and identifies a Medoid (the most representative transcript) for each group. Relationships are then defined:
+        Primary Orthologs: Transcripts from different genes that are the "closest" to each other within a cluster.
 
-Primary Orthologs: Transcripts from different genes that are the "closest" to each other within a cluster.
+        Ortho-isoorthologs: Primary pairs linked via a Speciation event in the tree.
 
-Ortho-isoorthologs: Primary pairs linked via a Speciation event in the tree.
+        Para-isoorthologs: Primary pairs linked via a Duplication event in the tree.
 
-Para-isoorthologs: Primary pairs linked via a Duplication event in the tree.
-
-Recent Paralogs: Transcripts from the same gene found within the same cluster.
+        Recent Paralogs: Transcripts from the same gene found within the same cluster.
 
 
 
