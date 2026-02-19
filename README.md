@@ -126,7 +126,7 @@ By leveraging unsupervised clustering (kMedoids/kMeans), this tool classifies tr
 </table>
 
 
-  #### 🧬 Methodology
+  ## 🧬 Methodology
   
     1. Optimal K Selection
 
