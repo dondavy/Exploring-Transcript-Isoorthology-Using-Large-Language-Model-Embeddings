@@ -457,6 +457,7 @@ def main(args):
     homology_df = homology_df.sort_values(['type', 'relation'])
     df_grouped = homology_df.set_index(['type', 'relation'])
     df_grouped.to_excel(os.path.join(args.output_path,'ortholog_report.xlsx'))
+    results_df.to_csv(os.path.join(args.output_path,f'clustering_report_best_k_{best_k}.tsv'), sep='\t', header=True)
     
     
     return True

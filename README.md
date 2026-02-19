@@ -149,7 +149,7 @@ By leveraging unsupervised clustering (kMedoids/kMeans), this tool classifies tr
 
 
 ### 📊 Output
-The tool generates an ortholog_report.xlsx file.
+* The tool generates an ortholog_report.xlsx file.
 
 <table style="width:100%; border-collapse: collapse; margin-top: 20px; font-family: Arial, sans-serif;">
   <thead>
@@ -177,3 +177,25 @@ The tool generates an ortholog_report.xlsx file.
     </tr>
   </tbody>
 </table>
+
+* Additionaly a clustering_report_best_k_{best_k}.tsv file is generated.
+
+<div style="font-family: sans-serif; padding: 20px; color: #333; line-height: 1.5;">
+  <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 8px;">Acknowledgements</h3>
+  
+  <p style="font-size: 0.95em; color: #555;">
+    This project is powered by the following open-source libraries:
+  </p>
+
+  <ul style="list-style-type: none; padding: 0;">
+    <li style="margin-bottom: 10px; padding: 10px; background-color: #f9f9f9; border-left: 4px solid #0366d6;">
+      <strong>scikit-learn & extra</strong>.
+    </li>
+    <li style="margin-bottom: 10px; padding: 10px; background-color: #f9f9f9; border-left: 4px solid #0366d6;">
+      <strong>ESM (Evolutionary Scale Modeling)</strong> 
+    </li>
+    <li style="margin-bottom: 10px; padding: 10px; background-color: #f9f9f9; border-left: 4px solid #0366d6;">
+      <strong>ETE3 Toolkit</strong>
+    </li>
+  </ul>
+</div>
