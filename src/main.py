@@ -1,5 +1,7 @@
 # src/main.py
 
+# LIBRAIRIES
+
 import sys
 import argparse
 import os
@@ -11,7 +13,6 @@ from sklearn_extra.cluster import KMedoids  # Requires: pip install scikit-learn
 import csv
 from ete3 import Tree
 from itertools import combinations
-
 
 # PARSE ARGS
 
@@ -64,6 +65,24 @@ def parse_args(args_list=None):
 # UTILS
 
 def get_evol_event(tree, geneA, geneB):
+    """
+    Retrieve the evolutionary event (speciation vs. duplication) for a gene pair.
+
+    Identifies the most recent common ancestor (MRCA) of two genes within a 
+    reconciled phylogenetic tree and extracts the event type (ev) assigned to that node.
+
+    Args:
+        tree (ete3.TreeNode): A phylogenetic tree object, typically reconciled 
+            with species information to identify evolutionary events (ev).
+        gene_a (str): The identifier for the first gene/leaf in the tree.
+        gene_b (str): The identifier for the second gene/leaf in the tree.
+
+    Returns:
+        str: The evolutionary event label. Common return values include:
+            - 'speciation': Speciation (leads to orthologs)
+            - 'duplication': Duplication (leads to paralogs)
+            - 'None': If the event is undefined or nodes are missing.
+    """
     return tree.get_common_ancestor([geneA, geneB]).ev
 
 def read_npy(folder_npy):
@@ -261,7 +280,22 @@ def compute_clustering(df, k_min=2, k_max=10, algorithm='kMedoids', metric='cosi
 
 def compute_homology(data, labels, medoids, metric, tree_path, s2t):
     """
-    Infer transcript homology relations
+    Infer transcript homology relations based on distance metrics and phylogenetic constraints.
+
+    Args:
+        data : Feature matrix representing transcripts.
+        labels (list): Unique identifiers corresponding to the rows in data.
+        medoids (list): Centroid-like representatives used for cluster-based comparison.
+        metric (str): The distance metric for similarity (e.g., 'euclidean' or 'cosine').
+        tree_path (str): File path to the guide tree (Nexus format).
+        s2t (dict): Mapping dictionary (e.g., Transcript-to-Gene) for ID resolution.
+
+    Returns:
+        pd.DataFrame: A table of homology relations containing:
+            - 'tr_a/b': Source and target transcript IDs.
+            - 'gene_a/b': Associated gene symbols for each transcript.
+            - 'relation': Biological relationship (e.g., 'ortho-isoorthologs').
+            - 'type': Classification of the match (e.g., 'primary orthologs').
     """
     metric = metric.lower()
     final_pairs = []
@@ -391,7 +425,6 @@ def compute_homology(data, labels, medoids, metric, tree_path, s2t):
         except:
             raise ValueError("Something wrong with the inference step!")
 
-
 # MAIN FUNCTION
 
 def main(args):
@@ -427,8 +460,6 @@ def main(args):
     
     
     return True
-
-
 
 if __name__ == "__main__":
     args = parse_args()
