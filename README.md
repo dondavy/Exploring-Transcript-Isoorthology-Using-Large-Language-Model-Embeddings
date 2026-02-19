@@ -8,8 +8,7 @@
 <h3 align="center">A Computational Framework for Inferring Isoform Orthology via LLM Embeddings </h3>
 
 
-# Transcript-Homology-Clustering
-A command-line tool designed to infer high-resolution homology relationships between transcripts by combining protein/gene embeddings with gene homology relations.
+A framework designed to infer high-resolution homology relationships between transcripts by combining protein/gene embeddings with gene homology relations.
 
 By leveraging unsupervised clustering (kMedoids/kMeans) and Direct Coupling Analysis logic, this tool classifies transcript pairs into specific categories like ortho-isoorthologs, para-isoorthologs, and recent paralogs.
 
@@ -22,7 +21,7 @@ Embedding Support: Works with any 1D numpy-based embeddings (e.g., ProtBert, ESM
 
 Flexible Metrics: Supports both Cosine and Euclidean distance metrics for high-dimensional similarity.
 
-### 🛠 Prerequisites
+## 🛠 Prerequisites
 #### Environment Setup
 
 You will need Python 3.8+ and the following libraries:
